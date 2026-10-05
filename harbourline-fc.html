@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Harbourline FC – Squad & Tactics</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0c2340; --navy2:#13335c; --teal:#1f8a9e; --gold:#f2b705;
+  --bg:#f4f7f9; --ink:#14212e; --muted:#5d6b7a; --line:#d8e0e7; --white:#fff;
+  --disp:"Barlow Condensed","Arial Narrow",Impact,sans-serif;
+  --body:"Barlow",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--body);background:var(--bg);color:var(--ink);line-height:1.55;font-size:17px}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.wrap{max-width:1160px;margin:0 auto;padding:0 24px}
+
+/* header + hero */
+header{background:var(--navy);color:var(--white)}
+nav{display:flex;justify-content:space-between;align-items:center;padding:18px 0}
+.brand{font-family:var(--disp);font-weight:800;font-size:26px;letter-spacing:.5px;text-decoration:none}
+.brand i{display:inline-block;width:14px;height:14px;background:var(--gold);border-radius:50%;margin-right:10px}
+nav ul{display:flex;gap:28px;list-style:none;padding:0}
+nav a{text-decoration:none;font-weight:500;opacity:.85}
+nav a:hover{opacity:1}
+.hero{padding:56px 0 72px;display:grid;grid-template-columns:1.3fr 1fr;gap:40px;align-items:end}
+.hero h1{font-family:var(--disp);font-weight:800;font-size:clamp(54px,9vw,112px);line-height:.92;letter-spacing:-1px}
+.hero p{max-width:46ch;margin-top:20px;color:#c3d1e0;font-size:19px}
+.facts{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:#2a4a73;border:1px solid #2a4a73}
+.facts div{background:var(--navy2);padding:16px 18px}
+.facts b{display:block;font-family:var(--disp);font-size:32px;font-weight:700;line-height:1.1}
+.facts span{color:#a9bdd3;font-size:15px}
+
+/* sections */
+section{padding:72px 0}
+h2{font-family:var(--disp);font-weight:800;font-size:clamp(38px,5vw,56px);line-height:1;margin-bottom:10px}
+.lead{color:var(--muted);max-width:60ch;margin-bottom:36px}
+
+/* tactics */
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}
+.tabs button{font:600 18px var(--disp);letter-spacing:.3px;padding:9px 20px;border:2px solid var(--navy);background:transparent;color:var(--navy);cursor:pointer;border-radius:999px}
+.tabs button[aria-pressed="true"],.tabs button[aria-selected="true"]{background:var(--navy);color:var(--white)}
+.board{display:grid;grid-template-columns:minmax(300px,440px) 1fr;gap:44px;align-items:start}
+.pitch{position:relative;aspect-ratio:2/3;background:#1d6b4a;border-radius:6px;overflow:hidden;box-shadow:0 0 0 6px var(--navy)}
+.pitch svg{position:absolute;inset:0;width:100%;height:100%}
+.pl{position:absolute;transform:translate(-50%,-50%);transition:left .7s cubic-bezier(.3,.7,.2,1),top .7s cubic-bezier(.3,.7,.2,1);background:none;border:0;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;color:#fff;font-family:var(--body)}
+.pl .dot{width:34px;height:34px;border-radius:50%;background:var(--navy);border:2px solid #fff;display:grid;place-items:center;font:700 16px var(--disp)}
+.pl.gk .dot{background:var(--gold);color:var(--navy);border-color:var(--gold)}
+.pl[aria-pressed="true"] .dot{background:var(--white);color:var(--navy);box-shadow:0 0 0 4px rgba(242,183,5,.9)}
+.pl .nm{font-size:12px;font-weight:600;text-shadow:0 1px 3px rgba(0,0,0,.7);white-space:nowrap}
+.info h3{font-family:var(--disp);font-size:44px;font-weight:800;line-height:1}
+.info .tag{color:var(--muted);margin:6px 0 22px;max-width:56ch}
+.phases{border-bottom:2px solid var(--line);display:flex;gap:4px;margin-bottom:18px}
+.phases button{font:600 17px var(--body);background:none;border:0;padding:10px 16px;cursor:pointer;color:var(--muted);border-bottom:3px solid transparent;margin-bottom:-2px}
+.phases button[aria-selected="true"]{color:var(--navy);border-bottom-color:var(--teal)}
+.phase-text{max-width:60ch;min-height:120px}
+.phase-text ul{padding-left:20px}
+.phase-text li{margin-bottom:8px}
+.role{margin-top:26px;padding:18px 20px;background:var(--white);border-left:5px solid var(--gold)}
+.role b{font-family:var(--disp);font-size:24px;display:block;line-height:1.2}
+.role small{color:var(--muted);font-size:15px}
+.role p{margin-top:6px}
+.meters{display:grid;gap:10px;margin-top:26px;max-width:460px}
+.meter{display:grid;grid-template-columns:130px 1fr 28px;align-items:center;gap:12px;font-size:15px}
+.meter div{height:8px;background:var(--line);border-radius:4px;overflow:hidden}
+.meter i{display:block;height:100%;background:var(--teal);transition:width .6s}
+
+/* squad */
+#squad{background:var(--white)}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+.filters button{font:600 16px var(--body);padding:7px 16px;border:1px solid var(--line);background:var(--bg);border-radius:999px;cursor:pointer}
+.filters button[aria-pressed="true"]{background:var(--navy);color:#fff;border-color:var(--navy)}
+.tbl{overflow-x:auto}
+table{width:100%;border-collapse:collapse;min-width:640px}
+th{text-align:left;font-weight:600;color:var(--muted);font-size:15px;padding:10px 12px;border-bottom:2px solid var(--navy)}
+td{padding:13px 12px;border-bottom:1px solid var(--line)}
+td.n{font:700 30px var(--disp);color:var(--teal);width:64px}
+td.nm{font-weight:600;font-size:18px}
+td.nm em{font-style:normal;background:var(--gold);color:var(--navy);font-size:13px;padding:1px 7px;border-radius:3px;margin-left:8px;font-weight:700}
+.pos{display:inline-block;min-width:44px;text-align:center;font-weight:600;font-size:14px;padding:2px 8px;border-radius:4px;color:#fff}
+.pos.GK{background:#b8860b}.pos.DF{background:var(--navy)}.pos.MF{background:var(--teal)}.pos.FW{background:#b23a48}
+.num{text-align:right;font-variant-numeric:tabular-nums}
+th.num{text-align:right}
+.staff{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:48px;padding-top:28px;border-top:2px solid var(--navy)}
+.staff b{font-family:var(--disp);font-size:26px;display:block}
+.staff span{color:var(--muted)}
+footer{background:var(--navy);color:#a9bdd3;padding:28px 0;font-size:15px}
+
+@media(max-width:860px){
+  .hero,.board{grid-template-columns:1fr}
+  .staff{grid-template-columns:1fr}
+  nav ul{gap:16px}
+  .pitch{max-width:440px}
+}
+@media(prefers-reduced-motion:reduce){.pl,.meter i{transition:none}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <nav aria-label="Main">
+      <a class="brand" href="#top"><i></i>Harbourline FC</a>
+      <ul><li><a href="#tactics">Tactics</a></li><li><a href="#squad">Squad</a></li></ul>
+    </nav>
+    <div class="hero" id="top">
+      <div>
+        <h1>Harbourline<br>Football Club</h1>
+        <p>Founded 1911. A possession-based side built on pressing high, moving the ball quickly and defending as one unit.</p>
+      </div>
+      <div class="facts" aria-label="Club facts">
+        <div><b>Elena Marković</b><span>Head coach</span></div>
+        <div><b>4-3-3</b><span>Primary formation</span></div>
+        <div><b>21</b><span>Players in the first-team squad</span></div>
+        <div><b>Port Stadium</b><span>Capacity 38,400</span></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+<section id="tactics">
+  <div class="wrap">
+    <h2>Tactics board</h2>
+    <p class="lead">Choose a formation to see how the team lines up and plays in each phase. Select a player to read their role.</p>
+    <div class="tabs" id="formTabs" role="group" aria-label="Formation"></div>
+    <div class="board">
+      <div class="pitch" id="pitch" aria-label="Pitch with starting eleven">
+        <svg viewBox="0 0 400 600" preserveAspectRatio="none" aria-hidden="true" fill="none" stroke="rgba(255,255,255,.55)" stroke-width="2">
+          <rect x="12" y="12" width="376" height="576"/>
+          <line x1="12" y1="300" x2="388" y2="300"/>
+          <circle cx="200" cy="300" r="52"/>
+          <rect x="95" y="12" width="210" height="95"/><rect x="150" y="12" width="100" height="36"/>
+          <rect x="95" y="493" width="210" height="95"/><rect x="150" y="552" width="100" height="36"/>
+          <path d="M155 107 A52 52 0 0 0 245 107"/><path d="M155 493 A52 52 0 0 1 245 493"/>
+        </svg>
+      </div>
+      <div class="info">
+        <h3 id="fName"></h3>
+        <p class="tag" id="fTag"></p>
+        <div class="phases" role="tablist" aria-label="Phase of play" id="phaseTabs"></div>
+        <div class="phase-text" id="phaseText" role="tabpanel"></div>
+        <div class="role" id="role"></div>
+        <div class="meters" id="meters" aria-label="Team profile"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="squad">
+  <div class="wrap">
+    <h2>First-team squad</h2>
+    <p class="lead">Season 2026/27. Appearances and goals are for all competitions.</p>
+    <div class="filters" id="filters" role="group" aria-label="Filter by position"></div>
+    <div class="tbl">
+      <table>
+        <thead><tr><th>No.</th><th>Player</th><th>Position</th><th>Nationality</th><th class="num">Age</th><th class="num">Apps</th><th class="num">Goals</th></tr></thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </div>
+    <div class="staff">
+      <div><b>Elena Marković</b><span>Head coach</span></div>
+      <div><b>Paulo Ferreira</b><span>Assistant coach, set pieces</span></div>
+      <div><b>Hannah Voss</b><span>Head of performance and analysis</span></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer><div class="wrap">Harbourline FC is a fictional club created for this page. Replace names and numbers with your own.</div></footer>
+
+<script>
+const P = {
+ 1:["Tomás Varga","GK","Argentina",29,24,0],
+ 13:["Idris Okafor","GK","Nigeria",22,6,0],
+ 2:["Luca Brandt","DF","Germany",26,27,2],
+ 3:["Kenji Mori","DF","Japan",24,25,3],
+ 4:["Rafael Duarte","DF","Portugal",30,28,1],
+ 5:["Viktor Halvorsen","DF","Norway",27,26,2],
+ 15:["Samir Haddad","DF","Morocco",25,19,1],
+ 12:["Aaron Cole","DF","England",21,11,0],
+ 22:["João Pires","DF","Portugal",23,9,0],
+ 6:["Mateo Ruiz","MF","Spain",28,27,1],
+ 8:["Emil Lindqvist","MF","Sweden",25,26,5],
+ 10:["Dario Costa","MF","Italy",27,25,11],
+ 14:["Noah Becker","MF","Germany",23,22,4],
+ 16:["Yusuf Demir","MF","Turkey",26,20,2],
+ 20:["Kofi Mensah","MF","Ghana",20,8,1],
+ 7:["Théo Marchand","FW","France",25,27,9],
+ 11:["Amara Diallo","FW","Senegal",24,26,12],
+ 17:["Felix Novak","FW","Czechia",22,14,3],
+ 21:["Ibrahim Sesay","FW","Sierra Leone",21,12,2],
+ 9:["Lars Eriksen","FW","Denmark",28,26,17],
+ 19:["Santiago Vidal","FW","Uruguay",26,18,7]
+};
+const CAPTAIN = 10;
+
+/* slot: [playerId, x%, y%, role title, role description] */
+const GKs = [1,50,91,"Sweeper-keeper","Starts the build-up, covers space behind the high line and plays short or long on the first pass."];
+const F = {
+"4-3-3":{
+ tag:"Our default. Wide forwards stretch the pitch while a single holding midfielder anchors the shape.",
+ poss:["Full-backs push up as the midfield three form a diamond with the holder.","Wingers hold the touchline to create 1v1s; the striker drops to link play.","Build short from the keeper, then break the first press with a third-man pass."],
+ out:["Press high in a 4-1-4-1 shape, forcing play wide and trapping it on the touchline.","The nearest midfielder jumps to the ball; the holder screens the centre.","Back line holds a high line and steps up together."],
+ trans:["Win the ball: first pass forward to the wide forwards, striker runs the channel.","Lose the ball: five-second counter-press, otherwise drop into the mid-block."],
+ m:{"Possession":78,"Pressing":85,"Width":80,"Directness":45,"Tempo":70},
+ s:[GKs,[2,82,74,"Right-back","Overlaps outside the winger and provides width when the winger comes inside."],[4,62,78,"Centre-back","Right-sided centre-back, strong in duels, steps out to win the ball."],[5,38,78,"Centre-back","Left-sided centre-back, leads the build-up with progressive passes."],[3,18,74,"Left-back","Advances to the byline and tucks inside in possession to protect against counters."],[6,50,60,"Holding midfielder","Anchors the shape, screens the back four and sets the tempo."],[8,70,46,"Right central midfielder","Box-to-box runner who arrives late in the penalty area."],[14,30,46,"Left central midfielder","Links defence to attack and supports the left side."],[7,82,23,"Right winger","Isolates the full-back and cuts inside onto his left foot."],[9,50,15,"Striker","Pins the centre-backs, presses the keeper and finishes chances."],[11,18,23,"Left winger","Runs in behind and attacks the far post."]]},
+"4-2-3-1":{
+ tag:"Two holding midfielders give us security, with a creative number ten behind the striker.",
+ poss:["The double pivot offers two passing options for the centre-backs.","The number ten roams between the lines to receive on the half-turn.","Wingers rotate with the full-backs to unbalance the opposition."],
+ out:["Mid-block in a 4-4-1-1; the number ten marks the opposing deep-lying midfielder.","The pivot stays narrow to protect the centre of the pitch.","Wide players track back and form a flat four with the midfield."],
+ trans:["Win the ball: find the number ten immediately, then release the wingers.","Lose the ball: the pivot steps in to delay and let the back line reset."],
+ m:{"Possession":70,"Pressing":62,"Width":68,"Directness":50,"Tempo":65},
+ s:[GKs,[2,82,74,"Right-back","Provides width on the right and delivers early crosses."],[4,62,78,"Centre-back","Organises the line and covers for the full-backs."],[5,38,78,"Centre-back","Ball-playing centre-back who breaks lines with vertical passes."],[3,18,74,"Left-back","Supports the left winger and recovers quickly."],[6,38,62,"Holding midfielder","Positions in front of the back line to win second balls."],[16,62,62,"Ball-winning midfielder","Presses the ball carrier and starts attacks with simple passes."],[7,80,38,"Right winger","Takes on his full-back and delivers cut-backs."],[10,50,38,"Attacking midfielder (captain)","The creative hub. Receives between the lines and plays the final pass."],[11,20,38,"Left winger","Cuts inside to shoot or combine with the striker."],[9,50,15,"Striker","Focal point of the attack; holds the ball up and finishes."]]},
+"3-5-2":{
+ tag:"A back three with wing-backs. Gives us a numerical edge in midfield and two strikers up front.",
+ poss:["Wing-backs provide all the width; the three centre-backs split to start play.","Midfield trio dominates the centre and feeds the strikers.","Strikers work as a pair: one drops, the other runs in behind."],
+ out:["Defend as a back five when wing-backs drop; midfield stays compact in the middle.","Strikers block the central passing lanes and show the opposition wide.","Wide centre-backs step out to engage when the ball enters the half-spaces."],
+ trans:["Win the ball: play long to a striker or switch to a wing-back.","Lose the ball: wing-backs sprint back to rebuild the five."],
+ m:{"Possession":60,"Pressing":58,"Width":72,"Directness":60,"Tempo":62},
+ s:[GKs,[4,70,78,"Right centre-back","Covers the channel and steps forward to join midfield when possible."],[5,50,81,"Central centre-back","The organiser; commands the line and stays deepest."],[15,30,78,"Left centre-back","Quick and aggressive, defends the wide channel."],[2,90,54,"Right wing-back","Covers the entire flank; delivers crosses for the strikers."],[3,10,54,"Left wing-back","Provides width on the left and tracks back as a fifth defender."],[6,50,60,"Defensive midfielder","Shields the back three and recycles possession."],[8,68,44,"Right central midfielder","Runs the half-space and supports both strikers."],[10,32,44,"Left central midfielder","Creative passer who dictates play from deep."],[9,40,16,"Striker","Target man who holds up the ball and links play."],[19,60,16,"Second striker","Runs in behind and attacks the space left by his partner."]]},
+"4-4-2":{
+ tag:"Compact and direct. Used when we need to protect a lead or play with extra width and a second striker.",
+ poss:["Play quickly into the strikers, then support with the central midfielders.","Wide midfielders stay high and wide to deliver crosses.","Full-backs hold their positions and only join when the opportunity is safe."],
+ out:["Two banks of four with 35 metres between the lines.","Strikers press the centre-backs to force long balls.","Central midfielders slide across to cover the ball side."],
+ trans:["Win the ball: play forward to the strikers, wide midfielders sprint to support.","Lose the ball: both banks drop immediately and reorganise."],
+ m:{"Possession":50,"Pressing":55,"Width":75,"Directness":72,"Tempo":68},
+ s:[GKs,[2,82,74,"Right-back","Stays disciplined and supports the right midfielder."],[4,62,78,"Centre-back","Wins aerial duels and clears danger."],[5,38,78,"Centre-back","Reads the game and sweeps up behind the line."],[3,18,74,"Left-back","Defends one-on-one and overlaps when safe."],[7,82,48,"Right midfielder","Works up and down the right flank, crosses and cuts inside."],[6,62,52,"Central midfielder","The defensive partner; wins the ball and distributes."],[14,38,52,"Central midfielder","Links defence and attack and arrives in the box."],[11,18,48,"Left midfielder","Takes on defenders and provides the final ball."],[9,40,18,"Striker","Leads the line and scores from crosses."],[19,60,18,"Striker","Moves into channels and threatens in behind."]]}
+};
+
+let form = "4-3-3", phase = "poss", sel = null;
+const $ = id => document.getElementById(id);
+
+function tabs(){
+  $("formTabs").innerHTML = Object.keys(F).map(k=>`<button aria-pressed="${k===form}" data-f="${k}">${k}</button>`).join("");
+  $("formTabs").onclick = e => { const b=e.target.closest("button"); if(b){ form=b.dataset.f; sel=null; draw(); } };
+}
+const phaseNames = {poss:"In possession",out:"Out of possession",trans:"Transitions"};
+function draw(){
+  const f = F[form];
+  tabs();
+  $("fName").textContent = form;
+  $("fTag").textContent = f.tag;
+  $("phaseTabs").innerHTML = Object.entries(phaseNames).map(([k,v])=>`<button role="tab" aria-selected="${k===phase}" data-p="${k}">${v}</button>`).join("");
+  $("phaseText").innerHTML = "<ul>"+f[phase].map(t=>`<li>${t}</li>`).join("")+"</ul>";
+  $("meters").innerHTML = Object.entries(f.m).map(([k,v])=>`<div class="meter"><span>${k}</span><div><i style="width:${v}%"></i></div><span>${v}</span></div>`).join("");
+  // players: reuse DOM nodes so dots slide between formations
+  const pitch = $("pitch");
+  const existing = {};
+  pitch.querySelectorAll(".pl").forEach(n=>existing[n.dataset.id]=n);
+  const used = new Set();
+  f.s.forEach(s=>{
+    const id = s[0]; used.add(String(id));
+    let n = existing[id];
+    if(!n){
+      n = document.createElement("button");
+      n.className = "pl"+(P[id][1]==="GK"?" gk":"");
+      n.dataset.id = id;
+      n.innerHTML = `<span class="dot">${id}</span><span class="nm">${P[id][0].split(" ").slice(-1)[0]}</span>`;
+      n.onclick = () => { sel = id; draw(); };
+      n.style.left = "50%"; n.style.top = "50%";
+      pitch.appendChild(n);
+      requestAnimationFrame(()=>requestAnimationFrame(()=>place(n,s)));
+    } else place(n,s);
+    n.setAttribute("aria-pressed", String(sel===id));
+    n.setAttribute("aria-label", `${P[id][0]}, number ${id}, ${s[3]}`);
+  });
+  Object.keys(existing).forEach(k=>{ if(!used.has(k)) existing[k].remove(); });
+  const cur = f.s.find(s=>s[0]===(sel ?? f.s.find(x=>x[0]===9||x[0]===10)?.[0])) || f.s[0];
+  $("role").innerHTML = `<b>${P[cur[0]][0]} <small>No. ${cur[0]}</small></b><small>${cur[3]}</small><p>${cur[4]}</p>`;
+}
+function place(n,s){ n.style.left=s[1]+"%"; n.style.top=s[2]+"%"; }
+$("phaseTabs").onclick = e => { const b=e.target.closest("button"); if(b){ phase=b.dataset.p; draw(); } };
+
+/* squad */
+let pos = "All";
+const groups = {All:"All players",GK:"Goalkeepers",DF:"Defenders",MF:"Midfielders",FW:"Forwards"};
+function squad(){
+  $("filters").innerHTML = Object.entries(groups).map(([k,v])=>`<button aria-pressed="${k===pos}" data-g="${k}">${v}</button>`).join("");
+  const order = {GK:0,DF:1,MF:2,FW:3};
+  const list = Object.entries(P).filter(([id,p])=>pos==="All"||p[1]===pos).sort((a,b)=>order[a[1][1]]-order[b[1][1]]||a[0]-b[0]);
+  $("rows").innerHTML = list.map(([id,p])=>`<tr><td class="n">${id}</td><td class="nm">${p[0]}${+id===CAPTAIN?"<em>C</em>":""}</td><td><span class="pos ${p[1]}">${p[1]}</span></td><td>${p[2]}</td><td class="num">${p[3]}</td><td class="num">${p[4]}</td><td class="num">${p[5]}</td></tr>`).join("");
+}
+$("filters").onclick = e => { const b=e.target.closest("button"); if(b){ pos=b.dataset.g; squad(); } };
+
+draw(); squad();
+</script>
+</body>
+</html>
